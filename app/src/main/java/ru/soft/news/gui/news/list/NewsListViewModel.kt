@@ -9,11 +9,11 @@ import ru.soft.news.model.News
  */
 
 data class NewsListViewModel(val news: List<News> = arrayListOf(),
-                             val state: State? = null, val error: String? = null) {
-    enum class State {
-        OK,
-        LOADING,
-        REFRESHING,
-        ERROR
-    }
+    val state: State? = null, val error: String? = null) {
+  enum class State {
+    OK,
+    LOADING,
+    REFRESHING,
+    ERROR
+  }
 }

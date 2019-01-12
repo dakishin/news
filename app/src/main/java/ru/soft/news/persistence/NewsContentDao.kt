@@ -12,13 +12,13 @@ import android.arch.persistence.room.Query
 @Dao
 interface NewsContentDao {
 
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun save(content: NewsContentRecord)
+  @Insert(onConflict = OnConflictStrategy.REPLACE)
+  fun save(content: NewsContentRecord)
 
-    @Query("DELETE FROM NewsContentRecord")
-    fun deleteAll()
+  @Query("DELETE FROM NewsContentRecord")
+  fun deleteAll()
 
-    @Query("SELECT * FROM NewsContentRecord WHERE id =:id")
-    fun getByNewsId(id: String): NewsContentRecord?
+  @Query("SELECT * FROM NewsContentRecord WHERE id =:id")
+  fun getByNewsId(id: String): NewsContentRecord?
 
 }

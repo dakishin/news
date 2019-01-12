@@ -10,10 +10,11 @@ import ru.soft.news.model.NewsContent
  */
 
 
-data class NewsContentViewModel(val content: NewsContent? = null, val state: State? = null, val error: String? = null) {
-    enum class State {
-        OK,
-        LOADING,
-        ERROR
-    }
+data class NewsContentViewModel(val content: NewsContent? = null, val state: State? = null,
+    val error: String? = null) {
+  enum class State {
+    OK,
+    LOADING,
+    ERROR
+  }
 }

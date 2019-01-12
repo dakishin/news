@@ -9,10 +9,10 @@ import android.support.v7.app.AppCompatActivity
 open class BaseFragment : Fragment() {
 
 
-    fun enableBackButton(enabled: Boolean) {
-        (activity as AppCompatActivity).supportActionBar?.setHomeButtonEnabled(enabled)
-        (activity as AppCompatActivity).supportActionBar?.setDisplayHomeAsUpEnabled(enabled)
-    }
+  fun enableBackButton(enabled: Boolean) {
+    (activity as AppCompatActivity).supportActionBar?.setHomeButtonEnabled(enabled)
+    (activity as AppCompatActivity).supportActionBar?.setDisplayHomeAsUpEnabled(enabled)
+  }
 
 
 }

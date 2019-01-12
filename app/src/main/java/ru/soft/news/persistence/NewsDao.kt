@@ -11,13 +11,13 @@ import android.arch.persistence.room.Query
 @Dao
 interface NewsDao {
 
-    @Query("SELECT * FROM NewsRecord ORDER BY publication_date DESC")
-    fun getAll(): List<NewsRecord>
+  @Query("SELECT * FROM NewsRecord ORDER BY publication_date DESC")
+  fun getAll(): List<NewsRecord>
 
-    @Insert()
-    fun save(news: List<NewsRecord>)
+  @Insert()
+  fun save(news: List<NewsRecord>)
 
-    @Query("DELETE FROM NewsRecord")
-    fun deleteAll()
+  @Query("DELETE FROM NewsRecord")
+  fun deleteAll()
 
 }

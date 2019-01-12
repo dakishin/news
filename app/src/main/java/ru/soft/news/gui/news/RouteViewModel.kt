@@ -1,8 +1,6 @@
 package ru.soft.news.gui.news
 
 import android.arch.lifecycle.ViewModel
-import ru.soft.news.gui.news.content.NewsContentPresenter
-import ru.soft.news.gui.news.list.NewsListPresenter
 
 /**
  *   Created by dakishin@gmail.com
@@ -18,12 +16,8 @@ import ru.soft.news.gui.news.list.NewsListPresenter
  *  Навигация и обновление view происходят только через NewsActivityPresenter. ViewModel гарантирует, что подписчики отработают в нужное время.
  *
  */
-class NewsComponent : ViewModel() {
+class RouteViewModel : ViewModel() {
 
-    lateinit var listPresenter: NewsListPresenter
-
-    lateinit var contentPresenter: NewsContentPresenter
-
-    lateinit var router: Router
+  lateinit var router: Router
 
 }

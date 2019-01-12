@@ -7,29 +7,29 @@ import android.arch.lifecycle.MutableLiveData
  */
 
 sealed class RouteState {
-    class ShowList : RouteState()
-    class ShowContent(val id: String) : RouteState()
-    class Back : RouteState()
-    class Finish : RouteState()
+  class ShowList : RouteState()
+  class ShowContent(val id: String) : RouteState()
+  class Back : RouteState()
+  class Finish : RouteState()
 }
 
 class Router {
-    val liveRoute = MutableLiveData<RouteState>()
+  val liveRoute = MutableLiveData<RouteState>()
 
-    fun back() {
-        liveRoute.value = RouteState.Back()
-    }
+  fun back() {
+    liveRoute.value = RouteState.Back()
+  }
 
-    fun finish() {
-        liveRoute.value = RouteState.Finish()
-    }
+  fun finish() {
+    liveRoute.value = RouteState.Finish()
+  }
 
-    fun showNewsList() {
-        liveRoute.value = RouteState.ShowList()
-    }
+  fun showNewsList() {
+    liveRoute.value = RouteState.ShowList()
+  }
 
-    fun showDetails(id: String) {
-        liveRoute.value = RouteState.ShowContent(id)
-    }
+  fun showDetails(id: String) {
+    liveRoute.value = RouteState.ShowContent(id)
+  }
 
 }

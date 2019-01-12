@@ -6,7 +6,7 @@ apply plugin: 'kotlin-kapt'
 android {
     compileSdkVersion androidCompileSdkVersion
     defaultConfig {
-        applicationId "ru.tinkoff.news"
+        applicationId "ru.soft.news"
         minSdkVersion androidMinSdkVersion
         targetSdkVersion androidTargetSdkVersion
         versionCode 1

@@ -1,9 +1,9 @@
 package ru.soft.news.gui.news
 
 import android.arch.lifecycle.Observer
-import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
+import android.util.Log
 import ru.soft.news.NewsApplication
 import ru.soft.news.R
 import ru.soft.news.viper.RouterProvider
@@ -12,43 +12,47 @@ import ru.soft.news.viper.RouterProvider
  * Корневая активити для модуля новостей.
  * Отвечает за навигацию.
  */
+const val TAG = "NewsTAG"
 
 class NewsActivity : AppCompatActivity() {
 
-    private lateinit var newsModule: NewsComponent
+  lateinit var router: Router
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
-        setSupportActionBar(findViewById(R.id.toolbar))
+  override fun onCreate(savedInstanceState: Bundle?) {
+    super.onCreate(savedInstanceState)
+    setContentView(R.layout.activity_main)
+    setSupportActionBar(findViewById(R.id.toolbar))
+    router = NewsApplication.appComponent().router
 
-        newsModule = ViewModelProviders.of(this).get(NewsComponent::class.java)
-        (application as NewsApplication).iocContainer.inject(newsModule)
-
-        val routerProvider = RouterProvider(this)
+    val routerProvider = RouterProvider(this)
 
 //      Подписываемся на роутинг активити. Роутинг восстанавливается только здесь.
-        newsModule.router.liveRoute.observe(this,
-                Observer {
-                    it?.let {
-                        routerProvider.route(it)
-                    }
-                })
-        if (savedInstanceState == null) {
-            //Если идет восстановление, то заново загружать список не нужно.
-            newsModule.router.showNewsList()
-            newsModule.listPresenter.loadNews()
-        }
-
+    router.liveRoute.observe(this,
+        Observer {
+          it?.let {
+            routerProvider.route(it)
+          }
+        })
+    if (savedInstanceState == null) {
+      //Если идет восстановление, то заново загружать список не нужно.
+      router.showNewsList()
     }
 
+    Log.d(TAG, "activity created")
+  }
 
-    override fun onBackPressed() {
+
+  override fun onBackPressed() {
 //      Определяем вернутся на предыдущий экран или выйти из приложения.
-        if (supportFragmentManager.backStackEntryCount == 0) {
-            newsModule.router.finish()
-        } else {
-            newsModule.router.back()
-        }
+    if (supportFragmentManager.backStackEntryCount == 0) {
+      router.finish()
+    } else {
+      router.back()
     }
+  }
+
+  override fun onDestroy() {
+    Log.d(TAG, "Activity destroyed")
+    super.onDestroy()
+  }
 }
