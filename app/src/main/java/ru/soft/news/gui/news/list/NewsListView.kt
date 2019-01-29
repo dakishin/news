@@ -10,11 +10,13 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import ru.soft.news.BaseFragment
 import ru.soft.news.NewsApplication
 import ru.soft.news.R
+import ru.soft.news.glide.ImageLoader
 import ru.soft.news.gui.news.Router
 import ru.soft.news.gui.news.TAG
 import ru.soft.news.model.News
@@ -40,6 +42,7 @@ class NewsListView : BaseFragment() {
   private lateinit var viewManager: RecyclerView.LayoutManager
   private lateinit var progressBar: View
   private lateinit var swipeRefresh: SwipeRefreshLayout
+  private lateinit var imageView: ImageView
 
 
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
@@ -72,6 +75,7 @@ class NewsListView : BaseFragment() {
           it ?: return@Observer
           renderVM(it)
         })
+
   }
 
 
@@ -114,7 +118,7 @@ class NewsListView : BaseFragment() {
     private val simpleDateFormat = SimpleDateFormat("dd MMMM, HH:mm", Locale.getDefault())
 
     class ViewHolder(rootView: View, val titleView: TextView,
-        val newsDateView: TextView) : RecyclerView.ViewHolder(rootView)
+        val newsDateView: TextView, val image: ImageView) : RecyclerView.ViewHolder(rootView)
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -124,8 +128,9 @@ class NewsListView : BaseFragment() {
 
       val newTitleView = rootView.findViewById<TextView>(R.id.newsTitle)
       val newsDateView = rootView.findViewById<TextView>(R.id.date)
+      val imageView = rootView.findViewById<ImageView>(R.id.news_image)
 
-      return ViewHolder(rootView, newTitleView, newsDateView)
+      return ViewHolder(rootView, newTitleView, newsDateView, imageView)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
@@ -136,6 +141,12 @@ class NewsListView : BaseFragment() {
       holder.itemView.setOnClickListener {
         router.showDetails(news.id)
       }
+      ImageLoader
+          .imageLoader(holder.image)
+          .withOnLoadSuccess { holder.image.setImageDrawable(it) }
+          .withUrl("https://picsum.photos/200/200/?random")
+          .load()
+
     }
 
     override fun getItemCount() = newsLists.size
